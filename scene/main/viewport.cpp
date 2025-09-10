@@ -32,11 +32,14 @@
 
 #include "core/config/project_settings.h"
 #include "core/debugger/engine_debugger.h"
+#include "core/math/math_defs.h"
+#include "core/math/rect2i.h"
 #include "core/templates/pair.h"
 #include "core/templates/sort_array.h"
 #include "scene/2d/audio_listener_2d.h"
 #include "scene/2d/camera_2d.h"
 #include "scene/2d/physics/collision_object_2d.h"
+#include "scene/resources/style_box.h"
 #ifndef _3D_DISABLED
 #include "scene/3d/audio_listener_3d.h"
 #include "scene/3d/camera_3d.h"
@@ -335,11 +338,15 @@ void Viewport::_sub_window_update(Window *p_window) {
 		Ref<StyleBox> panel = gui.subwindow_focused == p_window ? p_window->theme_cache.embedded_border : p_window->theme_cache.embedded_unfocused_border;
 		panel->draw(sw.canvas_item, r);
 
+		int title_height = p_window->theme_cache.title_height;
+		Ref<StyleBox> title_panel = gui.subwindow_focused == p_window ? p_window->theme_cache.embedded_title_box : p_window->theme_cache.embedded_unfocused_title_box;
+		Rect2i title_rect = r.grow_individual(0, title_height, 0, -r.size.y);
+		title_panel->draw(sw.canvas_item, title_rect);
+
 		// Draw the title bar text.
 		Ref<Font> title_font = p_window->theme_cache.title_font;
 		int font_size = p_window->theme_cache.title_font_size;
 		Color title_color = p_window->theme_cache.title_color;
-		int title_height = p_window->theme_cache.title_height;
 		int close_h_ofs = p_window->theme_cache.close_h_offset;
 		int close_v_ofs = p_window->theme_cache.close_v_offset;
 

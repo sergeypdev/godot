@@ -207,9 +207,13 @@ private:
 		Ref<StyleBox> embedded_border;
 		Ref<StyleBox> embedded_unfocused_border;
 
+		Ref<StyleBox> embedded_title_box;
+		Ref<StyleBox> embedded_unfocused_title_box;
+
 		Ref<Font> title_font;
 		int title_font_size = 0;
 		Color title_color;
+		Color title_unfocused_color;
 		int title_height = 0;
 		Color title_outline_modulate;
 		int title_outline_size = 0;
